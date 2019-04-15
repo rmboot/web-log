@@ -1,0 +1,46 @@
+{% extends 'testlog/base.html' %}
+{% block content %}
+<div class="jumbotron">
+    <table id="table" data-height="600" data-pagination="true" data-sort-stable="true">
+    <thead>
+        <tr>
+            <th data-field="remote_addr" data-sortable="true">remote_addr</th>
+            <th data-field="time_local" data-sortable="true">time_local</th>
+            <th data-field="http_method" data-sortable="true">http_method</th>
+            <th data-field="url" data-sortable="true">url</th>
+            <th data-field="http_status" data-sortable="true">http_status</th>
+            <th data-field="body_bytes_sent" data-sortable="true">body_bytes_sent</th>
+            <th data-field="http_referer" data-sortable="true">http_referer</th>
+{#            <th data-field="user_agent" data-sortable="true">user_agent</th>#}
+        </tr>
+    </thead>
+</table>
+</div>
+
+<script>
+  var data = [
+      {% if data %}
+        {% for i in data.object_list %}
+            {
+                remote_addr:'{{ i.remote_addr }}',
+                time_local:'{{ i.time_local }}',
+                http_method:'{{ i.http_method }}',
+                url:'{{ i.url }}',
+                http_status:'{{ i.http_status }}',
+                body_bytes_sent:'{{ i.body_bytes_sent }}',
+                http_referer:'{{ i.http_referer }}',
+                {#user_agent:'{{ i.user_agent }}',#}
+            },
+        {% endfor %}
+      {% endif %}
+  ];
+
+  var $table = $('#table');
+
+  $(function() {
+    $table.bootstrapTable({
+      data: data
+    })
+  })
+</script>
+{% endblock %}
