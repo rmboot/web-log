@@ -1,4 +1,4 @@
-{% extends 'testlog/base.html' %}
+{% extends 'test_log/base.html' %}
 {% block content %}
     <div id="container" style="height: 80%; width: 100%"></div>
     <script type="text/javascript">
@@ -6,7 +6,7 @@
         myChart = echarts.init(dom);
         option = {
             title: {
-                text: '国外不同IP访问排名',
+                text: '国外访问排名',
                 left: 'center',
                 top: 20,
                 textStyle: {
@@ -42,7 +42,7 @@
             ],
             series: [
                 {
-                    name: '不同IP数',
+                    name: '访问次数',
                     type: 'bar',
                     barWidth: '60%',
                     data: {{ outer_ip_all | safe }},

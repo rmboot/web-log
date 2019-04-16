@@ -4,20 +4,20 @@
      <title>Web日志分析可视化系统</title>
     {% load static %}
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
-    <link rel="stylesheet" href="{% static 'testlog/css/dashboard.css' %}">
-    <link rel="stylesheet" href="{% static 'testlog/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'testlog/css/bootstrap-table.min.css' %}">
-    <link rel="stylesheet" href="{% static 'testlog/open-iconic/font/css/open-iconic-bootstrap.css' %}">
-    <script src="{% static 'testlog/js/jquery.min.js' %}"></script>
-    <script src="{% static 'testlog/js/popper.min.js' %}"></script>
-    <script src="{% static 'testlog/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'testlog/js/bootstrap-table.min.js' %}"></script>
-    <script src="{% static 'testlog/js/locale/bootstrap-table-zh-CN.min.js' %}"></script>
-    <script src="{% static 'testlog/js/echarts.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'test_log/css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'test_log/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'test_log/css/bootstrap-table.min.css' %}">
+    <link rel="stylesheet" href="{% static 'test_log/open-iconic/font/css/open-iconic-bootstrap.css' %}">
+    <script src="{% static 'test_log/js/jquery.min.js' %}"></script>
+    <script src="{% static 'test_log/js/popper.min.js' %}"></script>
+    <script src="{% static 'test_log/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'test_log/js/bootstrap-table.min.js' %}"></script>
+    <script src="{% static 'test_log/js/locale/bootstrap-table-zh-CN.min.js' %}"></script>
+    <script src="{% static 'test_log/js/echarts.min.js' %}"></script>
 </head>
 <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'testlog:index'%}">日志分析可视化系统</a>
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'test_log:index'%}">日志分析可视化系统</a>
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
                 <a class="nav-link" href="#">
@@ -32,42 +32,42 @@
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'testlog:index'%}">
+                            <a class="nav-link active" href="{% url 'test_log:index'%}">
                                 <span class="oi oi-dashboard"> 仪表盘</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'testlog:http_status'%}">
+                            <a class="nav-link" href="{% url 'test_log:http_status'%}">
                                 <span class="oi oi-pie-chart"> 网站访问状态统计</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'testlog:http_status_line'%}">
+                            <a class="nav-link" href="{% url 'test_log:http_status_line'%}">
                                 <span class="oi oi-bar-chart"> 网站访问状态统计</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'testlog:inner_ip'%}">
+                            <a class="nav-link" href="{% url 'test_log:inner_ip'%}">
                                 <span class="oi oi-map"> 国内不同IP访问排名</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'testlog:inner_ip_ip'%}">
+                            <a class="nav-link" href="{% url 'test_log:inner_ip_ip'%}">
                                 <span class="oi oi-map"> 国内访问排名</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'testlog:outer_ip'%}">
+                            <a class="nav-link" href="{% url 'test_log:outer_ip'%}">
                                 <span class="oi oi-bar-chart"> 国外不同IP访问排名</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'testlog:outer_ip_ip'%}">
+                            <a class="nav-link" href="{% url 'test_log:outer_ip_ip'%}">
                                 <span class="oi oi-bar-chart"> 国外访问排名</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'testlog:user_agent_browser' %}">
+                            <a class="nav-link" href="{% url 'test_log:user_agent_browser' %}">
                                 <span class="oi oi-pie-chart"> 浏览器及网络爬虫情况</span>
                             </a>
                         </li>

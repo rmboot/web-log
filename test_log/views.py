@@ -22,7 +22,7 @@ class IndexView(View):
         else:
             data = Log.objects()
         p_data = IndexView.pagination(self=self, request=request, data=data)
-        return render(request, 'testlog/index.html', {'data': p_data})
+        return render(request, 'test_log/index.html', {'data': p_data})
 
 
 class HttpStatusView(View):
@@ -35,7 +35,7 @@ class HttpStatusView(View):
                 i['name'] = i['name'] + http_status_dict[i['name'][0]]
                 http_status_all.append(i)
                 http_status_name.append(i['name'])
-        return render(request, 'testlog/http_status.html',
+        return render(request, 'test_log/http_status.html',
                       {'http_status_name': json.dumps(http_status_name),
                        'http_status_all': json.dumps(http_status_all)})
 
@@ -50,7 +50,7 @@ class HttpStatusLineView(View):
                 i['name'] = i['name'] + http_status_dict[i['name'][0]]
                 http_status_all.append(i)
                 http_status_name.append(i['name'])
-        return render(request, 'testlog/http_status_line.html',
+        return render(request, 'test_log/http_status_line.html',
                       {'http_status_name': json.dumps(http_status_name),
                        'http_status_all': json.dumps(http_status_all)})
 
@@ -80,7 +80,7 @@ class InnerIPView(View):
                 if j['name'] == i['name']:
                     i['value'] = round(j['value'] / count * 100, 2)
         all_data_sort = sorted(all_data, key=lambda x: x['value'], reverse=True)
-        return render(request, 'testlog/inner_ip.html', {'ip_all': json.dumps(all_data_sort)})
+        return render(request, 'test_log/inner_ip.html', {'ip_all': json.dumps(all_data_sort)})
 
 
 class InnerIPIPView(View):
@@ -108,7 +108,7 @@ class InnerIPIPView(View):
                 if j['name'] == i['name']:
                     i['value'] = round(j['value'] / count * 100, 2)
         all_data_sort = sorted(all_data, key=lambda x: x['value'], reverse=True)
-        return render(request, 'testlog/inner_ip_ip.html', {'ip_all': json.dumps(all_data_sort)})
+        return render(request, 'test_log/inner_ip_ip.html', {'ip_all': json.dumps(all_data_sort)})
 
 
 class OuterIPView(View):
@@ -126,7 +126,7 @@ class OuterIPView(View):
         for i in data:
             outer_ip_all.append(i)
             outer_ip_name.append(i['name'])
-        return render(request, 'testlog/outer_ip.html',
+        return render(request, 'test_log/outer_ip.html',
                       {'outer_ip_name': json.dumps(outer_ip_name),
                        'outer_ip_all': json.dumps(outer_ip_all)})
 
@@ -146,13 +146,13 @@ class OuterIPIPView(View):
         for i in data:
             outer_ip_all.append(i)
             outer_ip_name.append(i['name'])
-        return render(request, 'testlog/outer_ip_ip.html',
+        return render(request, 'test_log/outer_ip_ip.html',
                       {'outer_ip_name': json.dumps(outer_ip_name),
                        'outer_ip_all': json.dumps(outer_ip_all)})
 
 
 class UserAgentBrowserView(ListView):
-    template_name = 'testlog/user_agent_browser.html'
+    template_name = 'test_log/user_agent_browser.html'
     context_object_name = 'user_agent'
 
     def get_queryset(self):
@@ -179,6 +179,6 @@ class UserAgentBrowserView(ListView):
 #         for i in os:
 #             os_all.append(i)
 #             user_agent_name.append(i['name'])
-#         return render(request, 'testlog/user_agent_browser.html',
+#         return render(request, 'test_log/user_agent_browser.html',
 #                       {'user_agent_name': json.dumps(user_agent_name),
 #                        'user_agent_all': json.dumps(user_agent_all)})
