@@ -88,10 +88,10 @@ WSGI_APPLICATION = 'web_log.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'weblog',
-        'USER': 'zw',
-        'PASSWORD': 'zhangwang',
+        'ENGINE': 'django.db.backends.mysql',  # 目前django_admin相关表存储在Mysql数据库上
+        'NAME': 'weblog',  # Your DB Name
+        'USER': 'zw',  # Your User Name
+        'PASSWORD': 'zhangwang',  # Your User Password
         'HOST': '127.0.0.1',
         'OPTIONS': {
             "init_command": "SET default_storage_engine='INNODB'"
