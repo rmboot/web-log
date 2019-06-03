@@ -1,0 +1,42 @@
+{% extends 'logtest/base.html' %}
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap-table.min.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script src="{% static 'js/tableExport.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+    <script src="{% static 'js/locale/bootstrap-table-zh-CN.min.js' %}"></script>
+    <script src="{% static 'js/extensions/export/bootstrap-table-export.min.js' %}"></script>
+
+    <table id="table" data-height="600" data-pagination="true" data-sort-stable="true" data-search="true"
+           data-search-align="left"  data-show-columns="true" data-show-export="true" data-show-fullscreen="true"
+           data-show-toggle="true">
+        <thead>
+        <tr>
+            <th data-field="remote_addr" data-sortable="true">IP地址</th>
+            <th data-field="time_local" data-sortable="true">访问时间</th>
+            <th data-field="all" data-sortable="true">日志记录</th>
+        </tr>
+        </thead>
+    </table>
+    <script>
+        var $table = $('#table');
+        $(function () {
+            $table.bootstrapTable({
+                data: {{ err_log.all_data | safe }}
+            })
+        });
+        $(function () {
+            $(window).on('resize', resize);
+            $("#menu-toggle").on('click', resize);
+
+            // Resize function
+            function resize() {
+                setTimeout(function () {
+                    // Resize table
+                    $table.resize();
+                }, 200);
+            }
+        });
+    </script>
+{% endblock %}

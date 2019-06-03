@@ -7,11 +7,10 @@ verify_ssl = true
 
 [packages]
 django = "*"
-mysqlclient = "*"
-mongoengine = "*"
-django-pure-pagination = "*"
+pymongo = "*"
 user-agents = "*"
-autopep8 = "*"
+apscheduler = "*"
+django-apscheduler = "*"
 
 [requires]
 python_version = "3.6"

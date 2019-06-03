@@ -1,0 +1,1 @@
+from django_apscheduler.admin import DjangoJobAdmin, DjangoJobExecutionAdmin

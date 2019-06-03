@@ -1,0 +1,125 @@
+{% extends 'logtest/base.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body analytics-info">
+                    <div id="g-line" style="height:300px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <h4 class="card-title mb-0">今日IP访问量前六名</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th class="border-top-0">IP</th>
+                            <th class="border-top-0">访问量</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in log.remote_addr_data %}
+                            <tr>
+                                <td class="txt-oflo">{{ i.remote_addr }}</td>
+                                <td><span class="font-medium">{{ i.count }}</span></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <h4 class="card-title mb-0">今日链接访问量前六名</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th class="border-top-0">链接</th>
+                            <th class="border-top-0">访问量</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in log.url_data %}
+                            <tr>
+                                <td class="txt-oflo">{{ i.url }}</td>
+                                <td><span class="font-medium">{{ i.count }}</span></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        myChart = echarts.init(document.getElementById('g-line'));
+        option = {
+
+            // Make gradient line here
+            visualMap: [{
+                show: false,
+                type: 'continuous',
+                seriesIndex: 0,
+                min: 0,
+                max: 400
+            }],
+
+
+            title: [{
+                left: 'center',
+                text: '最近10天网站访问量统计'
+            }],
+            tooltip: {
+                trigger: 'axis'
+            },
+
+            xAxis: [{
+                data: {{ log.date_data | safe }}
+            }],
+            yAxis: [{
+                splitLine: {show: false}
+            }],
+            grid: [{
+                // bottom: '60%',
+                left: '3%',
+                right: '3%'
+            }],
+            series: [{
+                type: 'line',
+                showSymbol: false,
+                data: {{ log.count | safe }}
+            }]
+        };
+        myChart.setOption(option);
+        $(function () {
+            $(window).on('resize', resize);
+            $("#menu-toggle").on('click', resize);
+
+            // Resize function
+            function resize() {
+                setTimeout(function () {
+                    // Resize table
+                    myChart.resize();
+                }, 200);
+            }
+        });
+    </script>
+{% endblock %}

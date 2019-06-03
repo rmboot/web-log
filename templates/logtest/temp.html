@@ -1,0 +1,65 @@
+{% extends 'logtest/base.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body analytics-info">
+                    <div id="g-line" style="height:600px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        myChart = echarts.init(document.getElementById('g-line'));
+        option = {
+
+            // Make gradient line here
+            visualMap: [{
+                show: false,
+                type: 'continuous',
+                seriesIndex: 0,
+                min: 0,
+                max: 400
+            }],
+
+
+            title: [{
+                left: 'center',
+                text: '今日访问量统计'
+            }],
+            tooltip: {
+                trigger: 'axis'
+            },
+
+            xAxis: [{
+                data: {{ today.data | safe }}
+            }],
+            yAxis: [{
+                splitLine: {show: false}
+            }],
+            grid: [{
+                // bottom: '60%',
+                left: '3%',
+                right: '3%'
+            }],
+            series: [{
+                type: 'line',
+                showSymbol: false,
+                data: {{ today.count | safe }}
+            }]
+        };
+        myChart.setOption(option);
+        $(function () {
+            $(window).on('resize', resize);
+            $("#menu-toggle").on('click', resize);
+
+            // Resize function
+            function resize() {
+                setTimeout(function () {
+                    // Resize table
+                    myChart.resize();
+                }, 200);
+            }
+        });
+    </script>
+{% endblock %}

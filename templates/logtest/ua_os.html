@@ -1,0 +1,74 @@
+{% extends 'logtest/base.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body analytics-info">
+                    <div id="container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        myChart = echarts.init(document.getElementById("container"));
+        option = {
+            title: {
+                text: '客户端操作系统情况',
+                left: 'center',
+                top: 20,
+                textStyle: {
+                    color: '#000'
+                }
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'left',
+                data: {{ os.name | safe }},
+            },
+            series: [
+                {
+                    name: 'ua_os',
+                    type: 'pie',
+                    radius: ['50%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '30',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    data: {{ os.all | safe }},
+                }
+            ]
+        };
+        myChart.setOption(option);
+        $(function () {
+            $(window).on('resize', resize);
+            $("#menu-toggle").on('click', resize);
+
+            // Resize function
+            function resize() {
+                setTimeout(function () {
+                    // Resize table
+                    myChart.resize();
+                }, 200);
+            }
+        });
+    </script>
+{% endblock %}

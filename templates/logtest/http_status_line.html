@@ -1,0 +1,74 @@
+{% extends 'logtest/base.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body analytics-info">
+                    <h4 class="card-title">网站访问状态统计</h4>
+                    <div id="container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        myChart = echarts.init(document.getElementById('container'));
+        option = {
+            title: {
+                text: '网站访问状态统计',
+                left: 'center',
+                top: 20,
+                textStyle: {
+                    color: '#000'
+                }
+            },
+            color: ['#3398DB'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: {{ http_status_line.name | safe }},
+                    axisTick: {
+                        alignWithLabel: true
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: '请求次数',
+                    type: 'bar',
+                    barWidth: '60%',
+                    data: {{ http_status_line.all | safe }},
+                }
+            ]
+        };
+        myChart.setOption(option);
+        $(function () {
+            $(window).on('resize', resize);
+            $("#menu-toggle").on('click', resize);
+
+            // Resize function
+            function resize() {
+                setTimeout(function () {
+                    // Resize table
+                    myChart.resize();
+                }, 200);
+            }
+        });
+    </script>
+{% endblock %}

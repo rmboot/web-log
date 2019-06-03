@@ -1,0 +1,100 @@
+{% extends 'logtest/base.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body analytics-info">
+                    <div id="g-line" style="height:600px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        myChart = echarts.init(document.getElementById('g-line'));
+        var option = {
+                // Setup grid
+                grid: {
+                    left: '1%',
+                    right: '2%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+
+                // Add Tooltip
+                tooltip : {
+                    trigger: 'axis'
+                },
+
+                // Add Legend
+                legend: {
+                    data:['Max']
+                },
+
+                // Add custom colors
+                color: ['#2962FF'],
+
+                // Enable drag recalculate
+                calculable: true,
+
+                // Horizontal Axiz
+                xAxis : [
+                    {
+                        type: 'category',
+                        boundaryGap : false,
+                        data: {{ today.data | safe }}
+                    }
+                ],
+
+                // Vertical Axis
+                yAxis : [
+                    {
+                        type : 'value',
+                        axisLabel : {
+                            formatter: '{value}'
+                        }
+                    }
+                ],
+
+                // Add Series
+                series : [
+                    {
+                        name:'访问量',
+                        type:'line',
+                        data: {{ today.count | safe }},
+                        markPoint : {
+                            data : [
+                                {type : 'max', name: 'Max'},
+                                {type : 'min', name: 'Min'}
+                            ]
+                        },
+                        markLine : {
+                            data : [
+                                {type : 'average', name: 'Average'}
+                            ]
+                        },
+                        lineStyle: {
+                            normal: {
+                                width: 3,
+                                shadowColor: 'rgba(0,0,0,0.1)',
+                                shadowBlur: 10,
+                                shadowOffsetY: 10
+                            }
+                        },
+                    }
+                ]
+            };
+        myChart.setOption(option);
+        $(function () {
+            $(window).on('resize', resize);
+            $("#menu-toggle").on('click', resize);
+
+            // Resize function
+            function resize() {
+                setTimeout(function () {
+                    // Resize table
+                    myChart.resize();
+                }, 200);
+            }
+        });
+    </script>
+{% endblock %}
